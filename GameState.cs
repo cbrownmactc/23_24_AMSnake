@@ -116,5 +116,28 @@ namespace AMSnake
 
             return Grid[newHeadPos.Row, newHeadPos.Col];
         }
+
+        public void Move()
+        {
+            Position newHeadPos = HeadPosition().Translate(Dir);
+            GridValue hit = WillHit(newHeadPos);
+            if (hit == GridValue.Outside
+                || hit == GridValue.Snake)
+            {
+                GameOver = true;
+            }
+            else if (hit == GridValue.Empty)
+            {
+                RemoveTail();
+                AddHead(newHeadPos);
+            }
+            else if (hit == GridValue.Food)
+            {
+                AddHead(newHeadPos);
+                Score++;
+                AddFood();
+            }
+
+        }
     }
 }
