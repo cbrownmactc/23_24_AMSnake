@@ -64,12 +64,29 @@ namespace AMSnake
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Draw();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void Draw()
+        {
+            DrawGrid();
+        }
+
+        private void DrawGrid()
+        {
+            for (int r=0; r< rows; r++)
+            {
+                for (int c=0; c<cols ; c++)
+                {
+                    GridValue gridVal = gameState.Grid[r, c];
+                    gridImages[r, c].Source = gridValToImage[gridVal];
+                }
+            }
         }
     }
 }
