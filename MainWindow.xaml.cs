@@ -32,6 +32,7 @@ namespace AMSnake
         private readonly int cols = 15;
         private readonly Image[,] gridImages;
         private GameState gameState;
+        private bool gameRunning;
 
         public MainWindow()
         {
@@ -62,19 +63,64 @@ namespace AMSnake
             return images;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        private async Task RunGame() {
             Draw();
+            Overlay.Visibility = Visibility.Hidden;
+            await GameLoop();
+        }
+
+        private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Overlay.Visibility == Visibility.Visible)
+            {
+                e.Handled = true;
+            }
+
+            if (!gameRunning)
+            {
+                gameRunning = true;
+                await RunGame();
+                gameRunning = false;
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if (gameState.GameOver)
+            {
+                return;
+            }
 
+            switch (e.Key)
+            {
+                case Key.Left:
+                    gameState.ChangeDirection(Direction.Left);
+                    break;
+                case Key.Right:
+                    gameState.ChangeDirection(Direction.Right);
+                    break;
+                case Key.Up:
+                    gameState.ChangeDirection(Direction.Up);
+                    break;
+                case Key.Down:
+                    gameState.ChangeDirection(Direction.Down);
+                    break;
+            }
         }
 
+        private async Task GameLoop()
+        {
+            while (!gameState.GameOver)
+            {
+                await Task.Delay(100);
+                gameState.Move();
+                Draw();
+            }
+        }
         private void Draw()
         {
             DrawGrid();
+            ScoreText.Text = $"Score {gameState.Score}";
         }
 
         private void DrawGrid()
@@ -88,5 +134,7 @@ namespace AMSnake
                 }
             }
         }
+
+
     }
 }

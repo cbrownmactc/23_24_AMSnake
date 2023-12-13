@@ -6,11 +6,15 @@
         xmlns:local="clr-namespace:AMSnake"
         mc:Ignorable="d"
         Title="Snake" Height="500" Width="800"
+        MinWidth="300" MinHeight="300"
         Background="{StaticResource BackgroundColor}"
         Foreground="{StaticResource TextColor}"
         FontFamily="{StaticResource MainFont}"
         WindowStartupLocation="CenterScreen"
-        Icon="Assets/icon.ico" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
+        Icon="Assets/icon.ico" 
+        PreviewKeyDown="Window_PreviewKeyDown"
+        KeyDown="Window_KeyDown">
+    <Viewbox>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -31,6 +35,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 RenderOptions.EdgeMode="Aliased"
+                Margin="20,0,20,20"
                 >
             <UniformGrid x:Name="GameGrid"
                          Width="400"
@@ -42,5 +47,22 @@
                 
             </UniformGrid>
         </Border>
+            <Border x:Name="Overlay"
+                Grid.Row="1"
+                Background="{StaticResource OverlayColor}"
+                Width="{Binding Path=ActualWidth, ElementName=GridBorder}"
+                Height="{Binding Path=ActualHeight, ElementName=GridBorder}"
+                Margin="{Binding Path=Margin, ElementName=GridBorder}"
+                RenderOptions.EdgeMode="Aliased">
+
+                <TextBlock x:Name="OverlayText"
+                           Text="Press Any Key To Start"
+                           FontSize="26"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           />
+            </Border>
     </Grid>
+    </Viewbox>
 </Window>
