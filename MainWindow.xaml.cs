@@ -42,6 +42,7 @@ namespace AMSnake
         private readonly Image[,] gridImages;
         private GameState gameState;
         private bool gameRunning;
+        private List<int> highScores = new();
 
         public MainWindow()
         {
@@ -165,7 +166,26 @@ namespace AMSnake
             await DrawDeadSnake();
             await Task.Delay(1000);
             OverlayText.Text = "Press Any Key To Start";
+
+            UpdateLeaderboard();
             Overlay.Visibility = Visibility.Visible;
+        }
+
+        private void UpdateLeaderboard()
+        {
+            highScores.Add(gameState.Score);
+            highScores.Sort();
+            highScores.Reverse();
+
+            if (highScores.Count > 5)
+            {
+                highScores.RemoveAt(5);
+            }
+
+            foreach (int score in highScores)
+            {
+                OverlayText.Text += $"\n{score}";
+            }
         }
 
         private void DrawSnakeHead()

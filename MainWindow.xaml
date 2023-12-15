@@ -55,13 +55,16 @@
                 Margin="{Binding Path=Margin, ElementName=GridBorder}"
                 RenderOptions.EdgeMode="Aliased">
 
+                
                 <TextBlock x:Name="OverlayText"
                            Text="Press Any Key To Start"
                            FontSize="26"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           TextWrapping="Wrap"
+                           TextWrapping="Wrap" TextAlignment="Center"
                            />
+                
+
             </Border>
     </Grid>
     </Viewbox>
