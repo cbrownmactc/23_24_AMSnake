@@ -163,6 +163,8 @@ namespace AMSnake
 
         private async Task ShowGameOver()
         {
+            Audio.GameOver.Play();
+
             await DrawDeadSnake();
             await Task.Delay(1000);
             OverlayText.Text = "Press Any Key To Start";

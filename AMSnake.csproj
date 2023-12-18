@@ -11,9 +11,11 @@
     <None Remove="Assets\Body.png" />
     <None Remove="Assets\DeadBody.png" />
     <None Remove="Assets\DeadHead.png" />
+    <None Remove="Assets\ding.mp3" />
     <None Remove="Assets\DroidSansMono.ttf" />
     <None Remove="Assets\Empty.png" />
     <None Remove="Assets\Food.png" />
+    <None Remove="Assets\game-over.wav" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
   </ItemGroup>
@@ -22,9 +24,13 @@
     <Resource Include="Assets\Body.png" />
     <Resource Include="Assets\DeadBody.png" />
     <Resource Include="Assets\DeadHead.png" />
+    <Resource Include="Assets\ding.mp3" />
     <Resource Include="Assets\DroidSansMono.ttf" />
     <Resource Include="Assets\Empty.png" />
     <Resource Include="Assets\Food.png" />
+    <Content Include="Assets\game-over.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\Head.png" />
     <Resource Include="Assets\icon.ico" />
   </ItemGroup>
