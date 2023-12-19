@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace AMSnake
 {
@@ -43,6 +44,8 @@ namespace AMSnake
         private GameState gameState;
         private bool gameRunning;
         private List<int> highScores = new();
+        private int boostSpeed = 0;
+        private Random random = new Random();
 
         public MainWindow()
         {
@@ -120,6 +123,9 @@ namespace AMSnake
                 case Key.Down:
                     gameState.ChangeDirection(Direction.Down);
                     break;
+                case Key.Space:
+                    boostSpeed = (boostSpeed == 0) ? GameSettings.BoostSpeed : 0;
+                    break;
             }
         }
 
@@ -127,7 +133,7 @@ namespace AMSnake
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(100);
+                await Task.Delay(100-boostSpeed);
                 gameState.Move();
                 Draw();
             }
@@ -163,6 +169,8 @@ namespace AMSnake
 
         private async Task ShowGameOver()
         {
+            GameSettings.BoostSpeed = 0;
+            ShakeWindow(GameSettings.ShakeDuration);
             Audio.GameOver.Play();
 
             await DrawDeadSnake();
@@ -211,8 +219,27 @@ namespace AMSnake
                 ImageSource source =
                     (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
-                await Task.Delay(50);
+                await Task.Delay(Math.Max(50-(i*3),10));
             }
+        }
+
+        private async Task ShakeWindow(int durationMs)
+        {
+            var oLeft = this.Left;
+            var oTop = this.Top;
+            var shakeTimer = new DispatcherTimer(DispatcherPriority.Send);
+
+            shakeTimer.Tick += (sender, args) =>
+            {
+                this.Left = oLeft + random.Next(-10, 11);
+                this.Top = oTop + random.Next(-10, 11);
+            };
+
+            shakeTimer.Interval = TimeSpan.FromMilliseconds(200);
+            shakeTimer.Start();
+
+            await Task.Delay(durationMs);
+            shakeTimer.Stop();
         }
     }
 }
