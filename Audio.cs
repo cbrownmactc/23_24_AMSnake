@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace AMSnake
@@ -7,6 +9,13 @@ namespace AMSnake
     {
         public readonly static MediaPlayer GameOver = LoadAudio("game-over.wav");
         public readonly static MediaPlayer Ding = LoadAudio("ding.mp3");
+        public readonly static MediaPlayer Background1 = LoadAudio("welcome-jungle.m4a",1,true,false);
+        public readonly static MediaPlayer Background2 = LoadAudio("concrete-jungle.m4a",1,true,false);
+
+        public readonly static List<MediaPlayer> BGMusic = new()
+        {
+            Background1, Background2
+        };
 
         private static MediaPlayer LoadAudio(string filename,
             double volume = 1, bool repeat = false, bool autoReset = true)

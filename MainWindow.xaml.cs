@@ -79,8 +79,12 @@ namespace AMSnake
         }
 
         private async Task RunGame() {
+
             Draw();
             await ShowCountDown();
+            if (GameSettings.EnableBGMusic)
+                Audio.BGMusic[random.Next(0, Audio.BGMusic.Count)].Play();
+
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
@@ -171,6 +175,11 @@ namespace AMSnake
         {
             GameSettings.BoostSpeed = 0;
             ShakeWindow(GameSettings.ShakeDuration);
+            foreach (MediaPlayer m in Audio.BGMusic)
+            {
+                m.Stop();
+            }
+
             Audio.GameOver.Play();
 
             await DrawDeadSnake();

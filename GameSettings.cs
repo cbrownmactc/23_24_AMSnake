@@ -10,5 +10,6 @@ namespace AMSnake
     {
         public static int ShakeDuration { get; set; } = 2000;
         public static int BoostSpeed { get; set; } = 40;
+        public static bool EnableBGMusic { get; set; } = false;
     }
 }
