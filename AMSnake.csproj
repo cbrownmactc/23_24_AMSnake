@@ -19,6 +19,7 @@
     <None Remove="Assets\game-over.wav" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\wall.jpg" />
     <None Remove="Assets\welcome-jungle.m4a" />
   </ItemGroup>
 
@@ -41,6 +42,7 @@
     </Content>
     <Resource Include="Assets\Head.png" />
     <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\wall.jpg" />
   </ItemGroup>
 
 </Project>

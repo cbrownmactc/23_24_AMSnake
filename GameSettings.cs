@@ -11,5 +11,7 @@ namespace AMSnake
         public static int ShakeDuration { get; set; } = 2000;
         public static int BoostSpeed { get; set; } = 40;
         public static bool EnableBGMusic { get; set; } = false;
+        public static double WallDensity { get; set; } = .15;
+        public static bool WallFatality { get; set; } = true;
     }
 }

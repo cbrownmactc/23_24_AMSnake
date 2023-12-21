@@ -26,7 +26,8 @@ namespace AMSnake
             {
                 { GridValue.Empty, Images.Empty },
                 { GridValue.Snake, Images.Body },
-                {GridValue.Food , Images.Food }
+                { GridValue.Food , Images.Food },
+                { GridValue.Wall, Images.Wall }
             };
 
         private readonly Dictionary<Direction, int>

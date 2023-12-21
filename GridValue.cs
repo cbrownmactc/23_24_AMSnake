@@ -7,6 +7,7 @@ namespace AMSnake
         Empty,
         Snake,
         Food,
+        Wall,
         Outside
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,7 @@ namespace AMSnake
 
             AddSnake();
             AddFood();
+            AddWalls();
         }
 
         private void AddSnake()
@@ -65,6 +67,21 @@ namespace AMSnake
 
             Position pos = empty[random.Next(empty.Count)];
             Grid[pos.Row, pos.Col] = GridValue.Food;
+        }
+
+        private void AddWalls()
+        {
+            int numberOfWalls = (int)(Rows * Cols * GameSettings.WallDensity);
+            List<Position> empty = new List<Position>(EmptyPositions());
+
+            for (int c=0; c < numberOfWalls; c++)
+            {
+                if (empty.Count == 0)
+                    return;
+
+                Position pos = empty[random.Next(empty.Count)];
+                Grid[pos.Row, pos.Col] = GridValue.Wall;
+            }
         }
 
         public Position HeadPosition()
@@ -155,8 +172,11 @@ namespace AMSnake
 
             Position newHeadPos = HeadPosition().Translate(Dir);
             GridValue hit = WillHit(newHeadPos);
+
+            // Check if we hit something that kills us
             if (hit == GridValue.Outside
-                || hit == GridValue.Snake)
+                || hit == GridValue.Snake
+                || (GameSettings.WallFatality && hit == GridValue.Wall))
             {
                 GameOver = true;
             }
